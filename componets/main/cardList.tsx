@@ -18,7 +18,7 @@ export default function CardList(props: any) {
 const Container = styled.div`
     margin-left: 5%;
     margin-right: 5%;
-    padding-bottom: 20px;
+    padding-bottom: 20px;   
     margin-top: 20px;
 `;
 
@@ -27,7 +27,7 @@ const Title = styled.h2`
     font-weight: 600;
     color: #222;
     margin-bottom: 16px;
-`;
+`;  
 
 const ScrollArea = styled.div`
     overflow-x: auto;

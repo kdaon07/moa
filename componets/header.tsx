@@ -15,9 +15,9 @@ const Header = () => {
             </RightBox>
         </Container>
     );
-};
+};                 
 
-const Container = styled.header`
+const Container = styled.header`    
     width: 100%;
     height: 150px;
     display: flex;
@@ -42,7 +42,7 @@ const AuthButton = styled.button`
     background: none;
     border: none;
     color: #333;
-    font-size: 18px;
+    font-size: 18px; 
     font-weight: bold;
     cursor: pointer;
     padding: 0;
