@@ -8,42 +8,66 @@ import 'swiper/css/pagination';
 import styled from 'styled-components';
 
 const imageUrls = [
-  '../../test.png',
-  '../../test.png',
-  '../../test.png',
-  '../../test.png',
+  '/test.png',
+  '/test.png',
+  '/test.png',
 ];
 
 export default function Slider() {
   return (
-    <Container>
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={20}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        loop={true}
-      >
-        {imageUrls.map((src, index) => (
-          <SwiperSlide key={index}>
-            <Img src={src} alt={`Image ${index}`} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </Container>
+    <Wrapper>
+      <SliderBox>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={20}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          loop={true}
+        >
+          {imageUrls.map((src, index) => (
+            <SwiperSlide key={index}>
+              <ImageWrapper>
+                <Img src={src} alt={`Image ${index}`} />
+              </ImageWrapper>
+            </SwiperSlide>
+          ))}
+        </Swiper> 
+      </SliderBox>
+    </Wrapper>
   );
 }
 
-const Container = styled.div`
-  width: 50%;
-  height: calc(100vh - 80px);     
-  background-color: aqua;
-`
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 50px 80px;
+  gap: 60px;
+  transform: translateY(-80px) translateX(-100px);
+  margin: 0 auto;
+`;
+
+const SliderBox = styled.div`
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+`;
+
+const ImageWrapper = styled.div`
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+  
+`;
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background-color: lightgray;
-`
+  border-radius: 16px; 
+  background-color: #f8f8f8;
+`;

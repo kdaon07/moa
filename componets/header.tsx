@@ -10,8 +10,8 @@ const Header = () => {
                 <Button color="#FF6060" />
             </ButtonWrapper>
             <RightBox>
-                <AuthButton>로그인</AuthButton>
-                <AuthButton>회원가입</AuthButton>
+                <AuthButton onClick={() => window.location.href = '/login'}>로그인</AuthButton>
+                <AuthButton onClick={() => window.location.href = '/signup'}>회원가입</AuthButton>
             </RightBox>
         </Container>
     );

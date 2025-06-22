@@ -2,28 +2,7 @@ import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styled from "styled-components";
 
-export default function Card() {
-    const [fav, setFav] = useState(false)
-
-    return (
-        <Container>
-            <ImgContainer>
-                <Image src="../../test.png" alt="상품이미지" />
-                {
-                    fav ? <FavList color="#ff6b81" onClick={() => setFav(false)}><FaHeart /></FavList> :
-                        <FavList color="#ffffff" onClick={() => setFav(true)}><FaRegHeart /></FavList>
-                }
-            </ImgContainer>
-            <TextWrapper>
-                <Title>다마고치 공구 펀딩 입금폼</Title>
-                <Percent>100% 달성</Percent>
-            </TextWrapper>
-        </Container>
-    );
-}
-
-const Container = styled.div`
-    width: 280px;
+const Container = styled.div`    width: 280px;
     background: none;
     border-radius: 30px;
     overflow: hidden;
@@ -73,3 +52,30 @@ const Percent = styled.div`
     font-weight: bolder;
     color: #ff6b57;
 `
+
+
+export default function Card() {
+    const [fav, setFav] = useState(false)
+
+    return (
+        <Container onClick={() => window.location.href = '/detail/1'}>
+            <ImgContainer>
+                <Image src="../../test.png" alt="상품이미지" />
+                {
+                    fav ? <FavList color="#ff6b81" onClick={(e) => {
+                        e.stopPropagation();
+                        setFav(false);
+                    }}><FaHeart /></FavList> :
+                        <FavList color="#ffffff" onClick={(e) => {
+                            e.stopPropagation();
+                            setFav(true);
+                        }}><FaRegHeart /></FavList>
+                }
+            </ImgContainer>
+            <TextWrapper>
+                <Title>다마고치 공구 펀딩 입금폼</Title>
+                <Percent>80% 달성</Percent>
+            </TextWrapper>  
+        </Container>
+    );
+}

@@ -23,6 +23,7 @@ const Container = styled.div`
     align-items: center;
     padding: 0 20px;
     box-sizing: border-box;
+    z-index: 99;
 `;
 
 const StyledInput = styled.input`
@@ -39,7 +40,7 @@ const StyledInput = styled.input`
         font-weight: 20px;
         font-size: 18px;
         text-align: left;
-    }
+    }                
 `;
 
 const IconWrapper = styled.div`

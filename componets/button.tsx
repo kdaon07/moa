@@ -13,7 +13,6 @@ export default function Button({ color }: ButtonProps) {
 const Btn = styled.button<{ color?: string }>`
     width: 108px;
     height: 50px;
-    border: 1px solid black;
     border-radius: 40px;
     font-size: 15px;
     font-weight: bold;
