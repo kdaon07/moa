@@ -1,45 +1,71 @@
 import styled from 'styled-components';
 
-export default function Info() {
+interface InfoProps {
+    title: string;
+    description: string;
+    targetAmount: number;
+    currentAmount: number;
+    accountNumber: string;
+    deadline: string;
+    username: string;
+    school: string;
+}
+
+export default function Info({ title, description, targetAmount, currentAmount, accountNumber, deadline, username, school }: InfoProps) {
+    const percent = Math.floor((currentAmount / targetAmount) * 100);
+    const remain = Math.max(targetAmount - currentAmount, 0);
     return (
         <Container>
-            <Title>다마고치 공구 선입금 펀딩</Title>
+            <Title>{title}</Title>
             <Container2>
                 <SubTitle>모인금액</SubTitle>
                 <AmountRow>
-                    <Num>240,000</Num><Text>원</Text>
+                    <Num>{currentAmount.toLocaleString()}</Num><Text>원</Text>
                 </AmountRow>
                 <Bar>
-                    <Gauge style={{ width: '80%' }} />
+                    <Gauge style={{ width: `${percent}%` }} />
                 </Bar>
             </Container2>
             <Container2>
-                <SubTitle>남은기간</SubTitle>
+                <SubTitle>목표금액</SubTitle>
                 <AmountRow>
-                    <Num>7</Num><Text>일</Text>
+                    <Num>{targetAmount.toLocaleString()}</Num><Text>원</Text>
                 </AmountRow>
             </Container2>
-            <Container2>
-                <SubTitle>후원자</SubTitle>
-                <AmountRow>
-                    <Num>324</Num><Text>명</Text>
-                </AmountRow>
-            </Container2>
+
+            <DescriptionSection>
+                <DescriptionTitle>프로젝트 소개</DescriptionTitle>
+                <DescriptionText>{description}</DescriptionText>
+            </DescriptionSection>
             <Footer>
                 <Target>
-                    <span>목표금액</span>
-                    <span>300,000</span>
+                    <span style={{ fontWeight: 'bold' }}>마감일</span>
+                    <span>{deadline}</span>
                 </Target>
                 <Target>
-                    <span>예상 발송일</span>
-                    <span>2025년 8월 19일</span>
-                </Target>
-                <Target>
-                    <span>프리오더 기간</span>
-                    <span>2025.04.25 ~ 2025.06.21</span>
+                    <span style={{ fontWeight: 'bold' }}>작성자</span>
+                    <span>{username} ({school})</span>
                 </Target>
             </Footer>
-            <FundingButton>펀딩 참여하기</FundingButton>
+            <FundingButton
+                onClick={() => {
+                    const isLoggedIn = !!localStorage.getItem('token');
+                    if (!isLoggedIn) {
+                        window.location.href = '/login';
+                        return;
+                    }
+                    const path = window.location.pathname;
+                    const idMatch = path.match(/(\d+)/);
+                    const id = idMatch ? idMatch[1] : null;
+                    if (id) {
+                        window.location.href = `/fund/${id}`;
+                    } else {
+                        alert("잘못된 접근입니다.");
+                    }
+                }}
+            >
+                펀딩 참여하기
+            </FundingButton>
         </Container>
     )
 }
@@ -121,4 +147,26 @@ const FundingButton = styled.button`
     &:hover {
         background-color: #e05555;
     }
+`;
+
+const DescriptionSection = styled.div`
+    margin: 24px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #ff6b6b;
+`;
+
+const DescriptionTitle = styled.h3`
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
+`;
+
+const DescriptionText = styled.p`
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
 `;

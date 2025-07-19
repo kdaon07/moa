@@ -7,13 +7,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styled from 'styled-components';
 
-const imageUrls = [
-  '/test.png',
-  '/test.png',
-  '/test.png',
-];
+interface SliderProps {
+  images: string[];
+}
 
-export default function Slider() {
+export default function Slider({ images }: SliderProps) {
   return (
     <Wrapper>
       <SliderBox>
@@ -25,10 +23,10 @@ export default function Slider() {
           pagination={{ clickable: true }}
           loop={true}
         >
-          {imageUrls.map((src, index) => (
+          {images.map((src, index) => (
             <SwiperSlide key={index}>
               <ImageWrapper>
-                <Img src={src} alt={`Image ${index}`} />
+                <Img src={src.startsWith('/') ? `http://localhost:8080${src}` : src} alt={`Image ${index}`} />
               </ImageWrapper>
             </SwiperSlide>
           ))}

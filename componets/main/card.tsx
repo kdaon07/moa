@@ -2,6 +2,17 @@ import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styled from "styled-components";
 
+interface CardProps {
+    project: {
+        id: number;
+        title: string;
+        imagePaths: string[];
+        currentAmount: number;
+        targetAmount: number;
+        // ...필요시 추가
+    }
+}
+
 const Container = styled.div`    width: 280px;
     background: none;
     border-radius: 30px;
@@ -53,28 +64,17 @@ const Percent = styled.div`
     color: #ff6b57;
 `
 
-
-export default function Card() {
+export default function Card({ project }: CardProps) {
     const [fav, setFav] = useState(false)
-
+    const percent = Math.floor((project.currentAmount / project.targetAmount) * 100);
     return (
-        <Container onClick={() => window.location.href = '/detail/1'}>
+        <Container onClick={() => window.location.href = `/detail/${project.id}`}>
             <ImgContainer>
-                <Image src="../../test.png" alt="상품이미지" />
-                {
-                    fav ? <FavList color="#ff6b81" onClick={(e) => {
-                        e.stopPropagation();
-                        setFav(false);
-                    }}><FaHeart /></FavList> :
-                        <FavList color="#ffffff" onClick={(e) => {
-                            e.stopPropagation();
-                            setFav(true);
-                        }}><FaRegHeart /></FavList>
-                }
+                <Image src={project.imagePaths[0] ? `http://localhost:8080${project.imagePaths[0]}` : '/test.png'} alt="썸네일" />
             </ImgContainer>
             <TextWrapper>
-                <Title>다마고치 공구 펀딩 입금폼</Title>
-                <Percent>80% 달성</Percent>
+                <Title>{project.title}</Title>
+                <Percent>{percent}% 달성</Percent>
             </TextWrapper>  
         </Container>
     );

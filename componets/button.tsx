@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 interface ButtonProps {
     color?: string;
+    onClick?: () => void;
 }
 
-export default function Button({ color }: ButtonProps) {
+export default function Button({ color, onClick }: ButtonProps) {
     return (
-        <Btn color={color}>+ 만들기</Btn>
+        <Btn color={color} onClick={onClick}>+ 만들기</Btn>
     )
 }
 

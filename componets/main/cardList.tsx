@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import Card from "./card";
 
-export default function CardList(props: any) {
+interface CardListProps {
+    title: string;
+    projects: any[];
+}
+
+export default function CardList({ title, projects }: CardListProps) {
     return (
         <Container>
-            <Title>{props.title}</Title>
+            <Title>{title}</Title>
             <ScrollArea>
                 <List>
-                    <Card /><Card /><Card /><Card /><Card />
-                    <Card /><Card /><Card /><Card /><Card />
+                    {projects.map((project) => (
+                        <Card key={project.id} project={project} />
+                    ))}
                 </List>
             </ScrollArea>
         </Container>

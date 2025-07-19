@@ -1,11 +1,35 @@
 import styled from "styled-components";
 import { IoSearch } from "react-icons/io5";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Search() {
+    const [keyword, setKeyword] = useState("");
+    const router = useRouter();
+
+    const handleSearch = () => {
+        if (keyword.trim()) {
+            router.push(`/?q=${encodeURIComponent(keyword)}`);
+        } else {
+            router.push(`/`);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    };
+
     return (
         <Container>
-            <StyledInput placeholder="검색어를 입력해주세요" />
-            <IconWrapper>
+            <StyledInput
+                placeholder="검색어를 입력해주세요"
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                onKeyDown={handleKeyDown}
+            />
+            <IconWrapper onClick={handleSearch}>
                 <IoSearch size={24} color="#333" />
             </IconWrapper>
         </Container>

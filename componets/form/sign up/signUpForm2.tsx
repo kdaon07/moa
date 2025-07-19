@@ -3,9 +3,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-export default function SignUpForm() {
+export default function SignUpForm2() {
   const [school, setSchool] = useState('');
-  const [studentId, setStudentId] = useState('');
   const [id, setId] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -22,8 +21,7 @@ export default function SignUpForm() {
       password,
       email,
       school,
-      studentNumber: studentId,
-      role: 'STUDENT',
+      role: 'COMMUNITY',
     };
     try {
       const res = await fetch(`${API_URL}/api/user/signup`, {
@@ -45,17 +43,11 @@ export default function SignUpForm() {
   return (
     <FormContainer onSubmit={handleSignUp}>
       <RowBox>
-        <SmallInput
+        <Input
           type="text"
           placeholder="학교"
           value={school}
           onChange={(e) => setSchool(e.target.value)}
-        />
-        <SmallInput
-          type="number"
-          placeholder="학번"
-          value={studentId}
-          onChange={(e) => setStudentId(e.target.value)}
         />
       </RowBox>
 
