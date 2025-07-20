@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import CardList from "@/componets/main/cardList";
 import Header from "@/componets/header";
-import { useSearchParams } from "next/navigation";
+import SearchResult from "../componets/main/SearchResult";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,8 +12,6 @@ export default function Home() {
   const [mySchoolProjects, setMySchoolProjects] = useState<any[]>([]);
   const [otherSchoolProjects, setOtherSchoolProjects] = useState<any[]>([]);
   const [allProjects, setAllProjects] = useState<any[]>([]);
-  const searchParams = useSearchParams();
-  const q = searchParams.get("q")?.toLowerCase() || "";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -37,43 +35,15 @@ export default function Home() {
     }
   }, []);
 
-  const filterProjects = (projects: any[]) => {
-    if (!q) return projects;
-    return projects.filter(
-      (p) =>
-        (p.title && p.title.toLowerCase().includes(q)) ||
-        (p.username && p.username.toLowerCase().includes(q)) ||
-        (p.school && p.school.toLowerCase().includes(q))
-    );
-  };
-
   return (
     <div>
       <Header />
-      {q ? (
-        <>
-          <div style={{margin: '24px 0 0 24px', fontWeight: 500, fontSize: 18}}>
-            "{q}" 검색 결과
-          </div>
-          {token ? (
-            <>
-              <CardList title="우리 학교에서 진행 중인 펀딩" projects={filterProjects(mySchoolProjects)} />
-              <CardList title="다른 학교의 펀딩도 둘러보기" projects={filterProjects(otherSchoolProjects)} />
-            </>
-          ) : (
-            <CardList title="진행 중인 펀딩" projects={filterProjects(allProjects)} />
-          )}
-        </>
-      ) : (
-        token ? (
-          <>
-            <CardList title="우리 학교에서 진행 중인 펀딩" projects={mySchoolProjects} />
-            <CardList title="다른 학교의 펀딩도 둘러보기" projects={otherSchoolProjects} />
-          </>
-        ) : (
-          <CardList title="진행 중인 펀딩" projects={allProjects} />
-        )
-      )}
+      <Suspense>
+        <SearchResult mySchoolProjects={mySchoolProjects} otherSchoolProjects={otherSchoolProjects} allProjects={allProjects} token={token} />
+      </Suspense>
+      <CardList title="우리 학교에서 진행 중인 펀딩" projects={mySchoolProjects} />
+      <CardList title="다른 학교의 펀딩도 둘러보기" projects={otherSchoolProjects} />
+      {!token && <CardList title="진행 중인 펀딩" projects={allProjects} />}
     </div>
   );
 }
