@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styled from "styled-components";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 interface CardProps {
     project: {
         id: number;
@@ -70,7 +72,7 @@ export default function Card({ project }: CardProps) {
     return (
         <Container onClick={() => window.location.href = `/detail/${project.id}`}>
             <ImgContainer>
-                <Image src={project.imagePaths[0] ? `http://localhost:8080${project.imagePaths[0]}` : '/test.png'} alt="썸네일" />
+                <Image src={project.imagePaths[0] ? `${API_URL}${project.imagePaths[0]}` : '/test.png'} alt="썸네일" />
             </ImgContainer>
             <TextWrapper>
                 <Title>{project.title}</Title>

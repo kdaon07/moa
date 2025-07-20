@@ -7,6 +7,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styled from 'styled-components';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 interface SliderProps {
   images: string[];
 }
@@ -26,7 +28,7 @@ export default function Slider({ images }: SliderProps) {
           {images.map((src, index) => (
             <SwiperSlide key={index}>
               <ImageWrapper>
-                <Img src={src.startsWith('/') ? `http://localhost:8080${src}` : src} alt={`Image ${index}`} />
+                <Img src={src.startsWith('/') ? `${API_URL}${src}` : src} alt={`Image ${index}`} />
               </ImageWrapper>
             </SwiperSlide>
           ))}

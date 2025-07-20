@@ -14,6 +14,10 @@ export default function Home() {
   const [allProjects, setAllProjects] = useState<any[]>([]);
 
   useEffect(() => {
+    if (!API_URL) {
+      console.error("API_URL is undefined");
+      return;
+    }
     if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
