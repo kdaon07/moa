@@ -41,9 +41,14 @@ export default function Home() {
       <Suspense>
         <SearchResult mySchoolProjects={mySchoolProjects} otherSchoolProjects={otherSchoolProjects} allProjects={allProjects} token={token} />
       </Suspense>
-      <CardList title="우리 학교에서 진행 중인 펀딩" projects={mySchoolProjects} />
-      <CardList title="다른 학교의 펀딩도 둘러보기" projects={otherSchoolProjects} />
-      {!token && <CardList title="진행 중인 펀딩" projects={allProjects} />}
+      {token ? (
+        <>
+          <CardList title="우리 학교에서 진행 중인 펀딩" projects={mySchoolProjects} />
+          <CardList title="다른 학교의 펀딩도 둘러보기" projects={otherSchoolProjects} />
+        </>
+      ) : (
+        <CardList title="진행 중인 펀딩" projects={allProjects} />
+      )}
     </div>
   );
 }
