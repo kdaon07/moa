@@ -59,15 +59,14 @@ const SliderBox = styled.div`
 
 const ImageWrapper = styled.div`
   width: 80%;
-  height: 80%;
+  aspect-ratio: 1 / 1;      /* 정사각형 비율 강제 */
   margin: 0 auto;
-  
+  overflow: hidden;         /* 둥근 모서리 자르기 위해 필요 */
+  border-radius: 16px;      /* 둥근 모서리 */
 `;
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 16px; 
-  background-color: #f8f8f8;
+  object-fit: cover;        /* 빈 공간 없이 꽉 차게 */
 `;

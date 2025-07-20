@@ -11,11 +11,11 @@ interface CardProps {
         imagePaths: string[];
         currentAmount: number;
         targetAmount: number;
-        // ...필요시 추가
     }
 }
 
-const Container = styled.div`    width: 280px;
+const Container = styled.div`
+    width: 280px;
     background: none;
     border-radius: 30px;
     overflow: hidden;
@@ -26,27 +26,17 @@ const Container = styled.div`    width: 280px;
 const ImgContainer = styled.div`
     position: relative;
     width: 100%;
-    aspect-ratio: 1/1;
-    background: none;
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden; 
 `
 
 const Image = styled.img`
-    width: 90%;
-    border-radius: 30px;
-    object-fit: cover;
-`
-const FavList = styled.div<{ color?: string }>`
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    font-size: 28px;
-    color: ${props => props.color};
-    background: none;
-    border-radius: 50%;
-    padding: 4px 8px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: fill;
 `
 
 const TextWrapper = styled.div`
@@ -67,7 +57,6 @@ const Percent = styled.div`
 `
 
 export default function Card({ project }: CardProps) {
-    const [fav, setFav] = useState(false)
     const percent = Math.floor((project.currentAmount / project.targetAmount) * 100);
     return (
         <Container onClick={() => window.location.href = `/detail/${project.id}`}>
